@@ -65,7 +65,7 @@ export class DistanceCalculator extends Component {
       submittedIP: true
     });
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
-      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + this.state.googleAPI;
+      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + this.state.googleApi;
       fetch(googleMapsURL).then((result) => {
         // Get the result
         // If we want text, call result.text()
