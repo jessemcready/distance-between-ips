@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.186.0",
+    "dotenv": "^4.0.0",
     "google-distance": "^1.0.1",
     "google-distance-matrix": "^1.1.1",
     "graphql": "^0.12.3",

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-const aws = require('aws-sdk');
+
+var apiKey = process.env.GOOGLE_API_KEY;
 
 export class DistanceCalculator extends Component {
   constructor(props) {
@@ -57,7 +58,6 @@ export class DistanceCalculator extends Component {
   }
 
   calculateDistance(){
-
     if(this.state.originLocation === this.state.destinationLocation){
       alert("Both locations are the same. Enter two different locations!");
       return;
@@ -66,7 +66,7 @@ export class DistanceCalculator extends Component {
       submittedIP: true
     });
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
-      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + process.env.GOOGLE_API_KEY;
+      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + apiKey;
       fetch(googleMapsURL).then((result) => {
         // Get the result
         // If we want text, call result.text()
