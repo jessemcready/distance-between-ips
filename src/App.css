@@ -1,0 +1,147 @@
+html {
+  background-color: #f2f2f2;
+  color: #6d1dd6;
+}
+
+input, label {
+  display: block;
+  border-radius: 5px;
+}
+
+input {
+  height: 40px;
+  width: 350px;
+}
+
+label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.ip-inputs {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  height: 300px;
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.App-header {
+  height: 250px;
+  padding: 20px;
+  color: #6d1dd6;
+}
+
+.submit-button {
+  border-radius: 5px;
+  border: 2px solid #6d1dd6;
+  background: #6d1dd6;
+  color: white;
+  width: 250px;
+  margin: 60px;
+}
+
+.back-button {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  border-radius: 5px;
+  border: 2px solid #6d1dd6;
+  background: #6d1dd6;
+  color: white;
+  padding: 10px;
+}
+
+.origin-input-label {
+    float: left;
+    padding: 50px;
+}
+
+.destination-input-label {
+    float: right;
+    padding: 50px;
+}
+
+.address {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+}
+
+.address2 {
+  font-weight:normal;
+  color: black;
+  text-align: left;
+}
+
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px) {
+    input {
+      height: 40px;
+      width: 300px;
+    }
+
+    input, label {
+      border-radius: 5px;
+    }
+
+    .ip-inputs {
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      width: 95%;
+      height: 350px;
+    }
+
+    .App {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .App-header {
+      height: 450px;
+      padding: 10px;
+      color: #6d1dd6;
+    }
+
+    .origin-input-label {
+      float: left;
+      padding: 10px;
+    }
+
+    .destination-input-label {
+      padding: 10px;
+      float: left;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      border-radius: 5px;
+      border: 2px solid #6d1dd6;
+      background: #6d1dd6;
+      color: white;
+      padding: 5px;
+    }
+
+    .address {
+      font-weight: bold;
+      color: black;
+      text-align: left;
+    }
+
+    .address2 {
+      font-weight:normal;
+      color: black;
+      text-align: left;
+    }
+
+  }
