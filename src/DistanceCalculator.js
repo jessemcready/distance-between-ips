@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-var apiKey = process.env.GOOGLE_API_KEY;
-
 export class DistanceCalculator extends Component {
   constructor(props) {
     super(props);
-    this.state = { originValue: '', destinationValue: '', submittedIP: false, originLocation: '', destinationLocation: '', duration: '' };
+    this.state = { originValue: '', destinationValue: '', submittedIP: false, originLocation: '', destinationLocation: '', duration: '', googleApi: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.calculateDistance = this.calculateDistance.bind(this);
     this.fetchOriginURL = this.fetchOriginURL.bind(this);
     this.fetchDestinationURL = this.fetchDestinationURL.bind(this);
+    this.getApiKey = this.getApiKey.bind(this);
   }
 
   handleChangeFor = (propertyName) => (event) => {
@@ -53,7 +52,7 @@ export class DistanceCalculator extends Component {
       this.setState({
         destinationLocation: destinationLocation
       });
-      this.calculateDistance();
+      this.getApiKey();
     })
   }
 
@@ -66,7 +65,7 @@ export class DistanceCalculator extends Component {
       submittedIP: true
     });
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
-      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + apiKey;
+      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + this.state.googleAPI;
       fetch(googleMapsURL).then((result) => {
         // Get the result
         // If we want text, call result.text()
@@ -86,6 +85,24 @@ export class DistanceCalculator extends Component {
         });
       });
     }
+  }
+
+  getApiKey() {
+    var herokuUrl = "https://api.heroku.com/apps/distance-between-ips/config-vars";
+    fetch(herokuUrl, {
+      headers: {
+        Accept: 'application/vnd.heroku+json; version=3',
+        Authorization: 'Bearer 4c62cd61-2503-4ed5-b708-de0de0b1092b'
+      }
+    }).then((result) => {
+      return result;
+    }).then((jsonResult) => {
+      console.log(jsonResult["GOOGLE_API_KEY"]);
+      this.setState({
+        googleApi: jsonResult["GOOGLE_API_KEY"]
+      });
+      this.calculateDistance();
+    })
   }
 
   handleSubmit(){
