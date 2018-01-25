@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+var apiKey = process.env.GOOGLE_API_KEY;
+
+console.log(process.env.HEROKU_KEY);
+console.log(apiKey);
+
 export class DistanceCalculator extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +14,6 @@ export class DistanceCalculator extends Component {
     this.calculateDistance = this.calculateDistance.bind(this);
     this.fetchOriginURL = this.fetchOriginURL.bind(this);
     this.fetchDestinationURL = this.fetchDestinationURL.bind(this);
-    this.getApiKey = this.getApiKey.bind(this);
   }
 
   handleChangeFor = (propertyName) => (event) => {
@@ -52,7 +56,7 @@ export class DistanceCalculator extends Component {
       this.setState({
         destinationLocation: destinationLocation
       });
-      this.getApiKey();
+      this.calculateDistance();
     })
   }
 
@@ -65,7 +69,7 @@ export class DistanceCalculator extends Component {
       submittedIP: true
     });
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
-      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + this.state.googleApi;
+      var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + apiKey;
       fetch(googleMapsURL).then((result) => {
         // Get the result
         // If we want text, call result.text()
@@ -87,24 +91,6 @@ export class DistanceCalculator extends Component {
     }
   }
 
-  getApiKey() {
-    var herokuUrl = "https://api.heroku.com/apps/distance-between-ips/config-vars";
-    fetch(herokuUrl, {
-      headers: {
-        Accept: 'application/vnd.heroku+json; version=3',
-        Authorization: 'Bearer 4c62cd61-2503-4ed5-b708-de0de0b1092b'
-      }
-    }).then((result) => {
-      return result;
-    }).then((jsonResult) => {
-      console.log(jsonResult["GOOGLE_API_KEY"]);
-      this.setState({
-        googleApi: jsonResult["GOOGLE_API_KEY"]
-      });
-      this.calculateDistance();
-    })
-  }
-
   handleSubmit(){
     var originGraphURL = "https://api.graphloc.com/graphql?query=%7B%0A%20%20getLocation(ip%3A%20%22" + this.state.originValue + "%22)%20%7B%0A%20%20%20%20location%20%7B%0A%20%20%20%20%20%20latitude%0A%20%20%20%20%20%20longitude%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A";
     var destinationGraphURL = "https://api.graphloc.com/graphql?query=%7B%0A%20%20getLocation(ip%3A%20%22" + this.state.destinationValue + "%22)%20%7B%0A%20%20%20%20location%20%7B%0A%20%20%20%20%20%20latitude%0A%20%20%20%20%20%20longitude%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A";
@@ -118,6 +104,7 @@ export class DistanceCalculator extends Component {
   }
 
   render() {
+    console.log(apiKey);
     const submittedIP = this.state.submittedIP;
     const originAddress = this.state.originLocation.split(",", 3);
     const destinationAddress = this.state.destinationLocation.split(",", 3);
