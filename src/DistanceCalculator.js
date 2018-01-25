@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import runtimeEnv from '@mars/heroku-js-runtime-env';
-
-let apiKey = "";
+var googleApi = require('./apiKey');
+var apiKey = googleApi.apiKey;
 
 export class DistanceCalculator extends Component {
   constructor(props) {
@@ -102,9 +101,6 @@ export class DistanceCalculator extends Component {
   }
 
   render() {
-    const env = runtimeEnv();
-    apiKey = env.GOOGLE_API_KEY;
-    console.log(apiKey);
     const submittedIP = this.state.submittedIP;
     const originAddress = this.state.originLocation.split(",", 3);
     const destinationAddress = this.state.destinationLocation.split(",", 3);
