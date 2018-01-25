@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-var googleApi = require('./apiKey');
-var apiKey = googleApi.apiKey;
+var apiKey = "";
+if(process.env.GOOGLE_API_KEY === undefined){
+  var googleApi = require('./apiKey');
+  apiKey = googleApi.apiKey || undefined;
+} else {
+  apiKey = process.env.GOOGLE_API_KEY;
+}
+
+console.log(apiKey);
 
 export class DistanceCalculator extends Component {
   constructor(props) {
