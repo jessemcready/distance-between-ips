@@ -8,6 +8,7 @@ if(process.env.GOOGLE_API_KEY === undefined){
 }
 
 console.log(apiKey);
+console.log(process.env);
 
 export class DistanceCalculator extends Component {
   constructor(props) {
@@ -74,9 +75,17 @@ export class DistanceCalculator extends Component {
     });
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
       var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + apiKey;
-      fetch(googleMapsURL).then((result) => {
+      fetch(googleMapsURL, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }).then((result) => {
         // Get the result
         // If we want text, call result.text()
+        if(!result.ok){
+          throw Error(result.statusText);
+        }
         return result.json();
       }).then((jsonResult) => {
         // Do something with the result
@@ -91,6 +100,8 @@ export class DistanceCalculator extends Component {
           destinationLocation: destinationAddress,
           duration: duration
         });
+      }).catch(function(error){
+        console.log("Looks like there was a problem: \n", error);
       });
     }
   }
