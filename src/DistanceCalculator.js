@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 var apiKey = "";
 if(process.env.GOOGLE_API_KEY === undefined){
-  var googleApi = require('./apiKey2');
+  var googleApi = require('./apiKey');
   apiKey = googleApi.apiKey || undefined;
 } else {
   apiKey = process.env.GOOGLE_API_KEY;
