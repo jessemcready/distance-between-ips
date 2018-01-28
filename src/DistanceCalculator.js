@@ -67,10 +67,7 @@ export class DistanceCalculator extends Component {
     if(this.state.originLocation !== "" && this.state.destinationLocation !== ""){
       var googleMapsURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.originLocation + "&destinations=" + this.state.destinationLocation + "&key=" + apiKey;
       fetch(googleMapsURL, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
+        'Access-Control-Allow-Origin': '*'
       }).then((result) => {
         // Get the result
         // If we want text, call result.text()
